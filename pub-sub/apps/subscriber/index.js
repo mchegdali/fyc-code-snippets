@@ -5,10 +5,6 @@ import brokerClient from "../publisher/broker-client.js";
 const app = express();
 app.use(express.json());
 
-const KNOWN_CHANNELS = ["logs", "notifications"];
-
-const LOG_LEVELS = ["info", "warn", "error"];
-
 app.get("/subscribe", async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   const channel = url.searchParams.get("channel");
@@ -22,39 +18,16 @@ app.get("/subscribe", async (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
-  if (!KNOWN_CHANNELS.includes(channel)) {
-    res.write(`Vous êtes abonné au canal : ${channel}\n\n`);
-  }
-
-  const callback = (message) => {
-    let body = "";
-
-    if (KNOWN_CHANNELS.includes(channel)) {
-      switch (channel) {
-        case "logs":
-          const randomLogLevel =
-            LOG_LEVELS[Math.floor(Math.random() * LOG_LEVELS.length)];
-          body = JSON.stringify({
-            level: randomLogLevel,
-            ts: Date.now(),
-            message,
-            channel,
-          });
-          break;
-        default:
-          body = JSON.stringify({ channel, message });
-      }
-    } else {
-      body = JSON.stringify({ channel, message });
-    }
+  const channelCallback = (message) => {
+    const body = JSON.stringify({ channel, message });
 
     res.write(`data: ${body}\n\n`);
   };
 
-  await brokerClient.subscribe(channel, callback);
+  await brokerClient.subscribe(channel, channelCallback);
 
   req.on("close", async () => {
-    await brokerClient.unsubscribe(channel, callback);
+    await brokerClient.unsubscribe(channel, channelCallback);
     console.log(`Un abonné a quitté le canal : ${channel}`);
     res.end();
   });

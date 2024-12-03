@@ -24,9 +24,13 @@ class PubSubBrokerServer {
   }
 
   #subscribeTo(channel, subscriberUrl) {
-    this.#state.channels[channel] = this.#state.channels[channel]
-      ? [...this.#state.channels[channel], subscriberUrl]
-      : [subscriberUrl];
+    if (!this.#state.channels[channel]) {
+      this.#state.channels[channel] = [];
+    }
+
+    if (!this.#state.channels[channel].includes(subscriberUrl)) {
+      this.#state.channels[channel].push(subscriberUrl);
+    }
   }
 
   #publishMessage(channel, messageEntry) {
