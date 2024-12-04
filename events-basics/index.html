@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Events basics</h1>
+
+    <button id="btn-add-event-listener">Add event listener</button>
+    <div id="counter">Bouton cliqué 0 fois</div>
+    
+    <script>
+        const btnAddEventListener = document.getElementById("btn-add-event-listener");
+        btnAddEventListener.addEventListener("click", addEventListener);
+        let counter = 0;
+
+        function addEventListener() {
+            counter++;
+            document.getElementById("counter").innerText = `Bouton cliqué ${counter} fois`;
+        }
+    </script>
+</body>
+</html>
