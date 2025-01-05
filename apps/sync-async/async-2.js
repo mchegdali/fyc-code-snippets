@@ -5,7 +5,7 @@ const responsePromise = fetch("https://jsonplaceholder.typicode.com/todos/1");
 console.log("juste après fetch");
 console.log("On peut faire autre chose ici");
 console.log(
-  "L'important est d'optimiser le taux d'utilisation du thread en réalisant des tâches ne nécessitant pas d'attendre la réponse"
+  "L'important est d'optimiser le taux d'utilisation du thread principale en réalisant des tâches ne nécessitant pas d'attendre la réponse"
 );
 
 const response = await responsePromise;

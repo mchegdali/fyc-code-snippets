@@ -1,0 +1,17 @@
+{
+  "name": "sync-async",
+  "version": "1.0.0",
+  "main": "async-1.js",
+  "type": "module",
+  "scripts": {
+    "start:sync": "node sync.js",
+    "start:1": "node async-1.js",
+    "start:2": "node async-2.js",
+    "start:3": "node async-3.js",
+    "start:4": "node async-4.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}
