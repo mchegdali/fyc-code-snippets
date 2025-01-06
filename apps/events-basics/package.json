@@ -1,0 +1,16 @@
+{
+  "name": "events-basics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "serve": "14.2.4"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "serve": "serve -l 8080"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

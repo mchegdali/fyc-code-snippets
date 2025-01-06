@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Events basics</h1>
+    <button id="btn">Cliquer pour incrémenter le compteur</button>
+    <div id="counter">Bouton cliqué 0 fois</div>
+    <script>
+      const btnElement = document.getElementById("btn");
+      const counterElement = document.getElementById("counter");
+
+      let counter = 0;
+
+      const addEventListener = () => {
+        counter++;
+        counterElement.innerText = `Bouton cliqué ${counter} fois`;
+      };
+
+      btnElement.addEventListener("mousedown", addEventListener);
+      btnElement.addEventListener("keypress", addEventListener);
+    </script>
+  </body>
+</html>
