@@ -13,16 +13,16 @@ emitter.on("connect", () => {
 
 emitter.on("disconnect", () => {
   console.log("Déconnexion !");
+  rl.close();
+  process.exit(0);
 });
 
 rl.on("line", (input) => {
-  if (input.trim().toLowerCase() === "ok") {
+  if (input.trim().toLowerCase() === "connect") {
     emitter.emit("connect");
-  } else if (input.trim().toLowerCase() === "bye") {
+  } else if (input.trim().toLowerCase() === "exit") {
     emitter.emit("disconnect");
-    rl.close();
-    process.exit(0);
   } else {
-    console.log("Input not recognized. Type 'ok' to connect.");
+    console.log("Input not recognized. Type 'connect' to connect.");
   }
 });
