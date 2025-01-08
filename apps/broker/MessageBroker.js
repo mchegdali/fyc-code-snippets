@@ -12,9 +12,8 @@ import cors from "cors";
  * - Connaît les adresses des destinataires (subscribers)
  * - Distribue le courrier au bon endroit
  */
-class MessageBroker {
+class MessageBroker extends EventEmitter {
   constructor() {
-    this.eventEmitter = new EventEmitter();
     this.app = express();
 
     this.app.use(express.json());
@@ -72,7 +71,7 @@ class MessageBroker {
    * @param {any} message - Contenu à diffuser aux subscribers
    */
   publish(topic, message) {
-    this.eventEmitter.emit(topic, message);
+    this.emit(topic, message);
   }
 
   /**
@@ -87,7 +86,7 @@ class MessageBroker {
    * @param {Function} callback - Fonction à appeler lors de la réception d'un message
    */
   subscribe(topic, callback) {
-    this.eventEmitter.on(topic, callback);
+    this.on(topic, callback);
   }
 
   /**
@@ -102,7 +101,7 @@ class MessageBroker {
    * @param {Function} callback - Fonction de callback à retirer
    */
   unsubscribe(topic, callback) {
-    this.eventEmitter.removeListener(topic, callback);
+    this.removeListener(topic, callback);
   }
 
   listen(port = 3000) {
